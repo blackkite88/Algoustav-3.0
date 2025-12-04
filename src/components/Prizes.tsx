@@ -205,7 +205,7 @@ const Prizes = () => {
         >
           <div className="bg-card/50 border border-neon-red/20 rounded-lg p-4 backdrop-blur-sm">
             <p className="text-muted-foreground text-sm">
-              All finalists receive certificates & exclusive merch. Additional spot prizes will be announced.
+              Prizes include AlgoUtsav merch and goodies. Additional spot prizes for all finalists will be announced.
             </p>
           </div>
         </motion.div>

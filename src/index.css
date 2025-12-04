@@ -22,7 +22,7 @@ All colors MUST be HSL.
     /* Neon Red Primary */
     --primary: 356 82% 51%;
     --primary-foreground: 0 0% 100%;
-    
+
     /* Dark Secondary */
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 95%;
@@ -48,22 +48,28 @@ All colors MUST be HSL.
     --deep-black: 0 0% 0%;
     --smoke-gray: 0 0% 10%;
     --eerie-fog: 0 0% 8%;
-    
+
     /* Gradients */
     --gradient-hero: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(0 0% 4%) 50%, hsl(356 20% 8%) 100%);
     --gradient-glow: radial-gradient(circle at center, hsl(var(--neon-red) / 0.3) 0%, transparent 70%);
-    
+
     /* Shadows & Glows */
     --shadow-neon: 0 0 20px hsl(var(--neon-red) / 0.6), 0 0 40px hsl(var(--neon-red) / 0.3);
     --shadow-deep: 0 10px 40px hsl(0 0% 0% / 0.8);
     --text-shadow-glow: 0 0 10px hsl(var(--neon-red) / 0.8), 0 0 20px hsl(var(--neon-red) / 0.5);
-    
+
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-glow: all 0.4s ease-in-out;
   }
+  .theme {
+    --animate-shiny-text: shiny-text 8s infinite;
+    --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+    --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+    --animate-pulse: pulse var(--duration) ease-out infinite;
+  }
 }
-  
+
 .stranger-things-font {
   font-family: 'ITC Benguiat Std', serif !important;
   letter-spacing: 0.05em;
@@ -99,7 +105,6 @@ All colors MUST be HSL.
     filter: hue-rotate(0deg);
   }
 }
-
 
 @layer base {
   * {
@@ -162,7 +167,7 @@ All colors MUST be HSL.
   .hover-glow {
     transition: var(--transition-glow);
   }
-  
+
   .hover-glow:hover {
     box-shadow: var(--shadow-neon);
     transform: translateY(-2px);
@@ -230,7 +235,7 @@ All colors MUST be HSL.
   align-items: center;
   height: 80vh;
   width: 100%;
-  
+
 }
 
 .hero-logo {
@@ -240,7 +245,6 @@ All colors MUST be HSL.
   display: block;
   margin: 0 auto;
 }
-
 
 @layer components {
 
@@ -313,4 +317,57 @@ All colors MUST be HSL.
     }
   }
 
+}
+
+/* ---break---
+*/
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ---break---
+*/
+
+@theme inline {
+  @keyframes shiny-text {
+  0%, 90%, 100% {
+    background-position: calc(-100% - var(--shiny-width)) 0;
+    }
+  30%, 60% {
+    background-position: calc(100% + var(--shiny-width)) 0;
+    }
+  }
+  @keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+  @keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0);
+    }
+  15%, 35% {
+    transform: translateZ(0) rotate(90deg);
+    }
+  65%, 85% {
+    transform: translateZ(0) rotate(270deg);
+    }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+    }
+  }
+  @keyframes pulse {
+  0%, 100% {
+    boxShadow: 0 0 0 0 var(--pulse-color);
+    }
+  50% {
+    boxShadow: 0 0 0 8px var(--pulse-color);
+    }
+  }
 }

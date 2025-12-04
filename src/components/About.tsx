@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Users, Trophy, Sparkles } from "lucide-react";
-import aboutIllustration from "@/assets/about-illustration.jpg";
+import { ScrollVelocityContainer, ScrollVelocityRow } from "./ui/scroll-based-velocity";
+import { Button } from "./ui/button";
+import { ChartLine, Medal, Sparkles, Trophy, Users } from "lucide-react";
+import { NumberTicker } from "./ui/number-ticker";
 
 const About = () => {
   const ref = useRef(null);
@@ -11,26 +13,26 @@ const About = () => {
   const features = [
     {
       icon: Users,
-      title: "National-level Participation",
-      description: "Students from top engineering colleges across India compete",
+      start: 1000,
+      number: 2250,
+      description: "Participants",
     },
     {
-      icon: Trophy,
-      title: "Top-tier Evaluation Panel",
-      description: "Industry experts and professors judge your innovations",
+      icon: ChartLine,
+      start: 100,
+      number: 330,
+      description: "Colleges represented",
     },
     {
-      icon: Sparkles,
-      title: "Exciting Prizes + Goodies",
-      description: "Win cash prizes, certificates, and exclusive merchandise",
+      icon: Medal,
+      start: 0,
+      number: 130,
+      description: "Teams in Offline Finals",
     },
   ];
 
   return (
     <section id="about" className="py-20 sm:py-32 bg-background relative overflow-hidden">
-      {/* Fog Effect */}
-      <div className="absolute inset-0 bg-gradient-radial from-neon-red/5 via-transparent to-transparent opacity-30" />
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -44,62 +46,24 @@ const About = () => {
           <div className="w-24 h-1 bg-neon-red mx-auto animate-glow-pulse" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="relative rounded-lg overflow-hidden border-2 border-neon-red/30 hover-glow">
-              <img
-                src={aboutIllustration}
-                alt="Stranger Things portal illustration"
-                className="w-full h-auto object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-            </div>
-          </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="space-y-6 text-center"
+        >
+          <p className="text-foreground text-2xl leading-relaxed">
+            <span className="text-neon-red font-semibold">AlgoUtsav</span> returns with its 3rd edition, and this time it's bigger and better than ever! 
+            <span className="text-neon-red font-semibold"> AlgoUtsav 3.0</span> is a national-level competitive programming contest organized by the Algorithmic and Programming Society (APS) of NIT Rourkela. The event is designed to challenge and inspire programmers from across India to showcase their skills and push their problem solving abilities to their limits..
+          </p>
 
-          {/* Right: Text */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="space-y-6"
-          >
-            <p className="text-foreground text-lg leading-relaxed">
-              <span className="text-neon-red font-semibold">Algoutsav 3.0</span> returns with a{" "}
-              <span className="text-neon-red">Stranger Things</span> inspired theme — challenging
-              students across India to engineer beyond the ordinary, confront unknown ideas, and
-              solve real-world problems through innovation.
-            </p>
+          <Button size="lg" variant="outline" onClick={() => window.open("https://chat.whatsapp.com/CWSSQsaQ4R56i095LfAZS5/")} className="font-cinzel text-lg text-neon-red border-red-800">
+            <img src="/public/WhatsApp_icon.png" alt="WhatsApp Icon" className="h-7 w-7 cursor-pointer" />
+            Join our Whatsapp Community and stay updated
+          </Button>
 
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              The hackathon is structured in two stages:
-            </p>
+        </motion.div>
 
-            <div className="space-y-4 pl-6 border-l-2 border-neon-red/50">
-              <div>
-                <h4 className="text-neon-red font-semibold text-lg">Stage 1 (Online Submission)</h4>
-                <p className="text-muted-foreground">
-                  Submit your innovative ideas and prototypes from anywhere in India.
-                </p>
-              </div>
-              <div>
-                <h4 className="text-neon-red font-semibold text-lg">
-                  Stage 2 (Offline 48-hour Finale)
-                </h4>
-                <p className="text-muted-foreground">
-                  Selected teams compete at NIT Rourkela campus for the ultimate showdown.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Feature Cards */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -112,19 +76,32 @@ const About = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.8 + index * 0.2 }}
-              className="bg-card border border-neon-red/30 rounded-lg p-6 hover-glow transition-all group"
+              className="bg-card border border-neon-red/30 rounded-lg p-6 hover-glow transition-all group flex justify-start flex-col items-center"
             >
-              <div className="flex items-center justify-center w-14 h-14 bg-neon-red/10 rounded-lg mb-4 border border-neon-red/50 group-hover:animate-glow-pulse">
-                <feature.icon className="text-neon-red" size={28} />
+              <feature.icon className="text-neon-red" size={28} />
+              <div className="my-2">
+                <NumberTicker 
+                  startValue={feature.start}
+                  value={feature.number} 
+                  className="text-6xl font-medium font-cinzel tracking-tighter whitespace-pre-wrap text-neon-red"
+                />
+                <span className="text-neon-red text-6xl font-medium font-cinzel">+</span>
               </div>
-              <h3 className="text-xl font-cinzel font-semibold text-foreground mb-2">
-                {feature.title}
+              <h3 className="text-lg font-cinzel font-semibold text-foreground mb-2">
+                {feature.description}
               </h3>
-              <p className="text-muted-foreground">{feature.description}</p>
             </motion.div>
           ))}
         </motion.div>
       </div>
+      <ScrollVelocityContainer className="absolute left-0 w-screen font-cinzel text-xl md:text-2xl font-bold text-neon-red mt-12">
+        <ScrollVelocityRow baseVelocity={5} direction={1}>
+          AlgoUtsav 3.0 - NIT Rourkela's Flagship Competitive Programming Contest &nbsp; • &nbsp;
+        </ScrollVelocityRow>
+        <ScrollVelocityRow baseVelocity={5} direction={-1}>
+          AlgoUtsav 3.0 - NIT Rourkela's Flagship Competitive Programming Contest &nbsp; • &nbsp;
+        </ScrollVelocityRow>
+      </ScrollVelocityContainer>
     </section>
   );
 };
